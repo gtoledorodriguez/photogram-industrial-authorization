@@ -6,19 +6,31 @@ class PhotoPolicy < ApplicationPolicy
     @photo = photo
   end
 
+
   def show?
-    UserPolicy.new(user, photo.owner).show?
+    user == photo.owner ||
+      !photo.owner.private? ||
+      photo.owner.followers.include?(user)
+  end
+
+  def edit?
+    user == photo.owner
   end
 
   def update?
     user == photo.owner
   end
 
-  def edit?
-    update?
+  def new?
+    true
+  end
+
+  def create?
+    user == photo.owner
   end
 
   def destroy?
     user == photo.owner
   end
-end
+
+end 
