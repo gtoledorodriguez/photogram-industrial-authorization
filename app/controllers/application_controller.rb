@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   include Pundit::Authorization
 
+  # after_action :verify_authorized, except: :index, unless: :devise_controller?
+
   before_action :authenticate_user!
   before_action :set_user_search, if: -> { current_user.present? }
   before_action :configure_permitted_parameters, if: :devise_controller?
