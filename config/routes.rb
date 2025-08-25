@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :comments
   resources :follow_requests, except: [:index, :show, :new,:edit]
-  resources :likes
+  resources :likes, only: [:create, :destroy]
   resources :photos
   resources :users, only: [ :index ]
 
